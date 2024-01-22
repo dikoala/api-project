@@ -16,3 +16,10 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/customers', 'CustomerController@getAllCustomers');
+$router->get('/customers/{customerId}', 'CustomerController@getCustomerDetails');
+
+$router->get('/{any:.*}', function () {
+    return response()->json(['error' => 'Not Found'], 404);
+});

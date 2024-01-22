@@ -23,7 +23,7 @@ class CreateCustomersTable extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('phone');
-            $table->string('password'); // This column will store the hashed password
+            $table->string('password');
             $table->timestamps();
         });
     }

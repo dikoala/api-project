@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('customers');  // To load 'customers' configuration
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,7 @@ $app->configure('app');
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(LaravelDoctrine\ORM\DoctrineServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -109,7 +111,11 @@ $app->configure('app');
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
+
+// Load the console commands manually in the Kernel.php file
+$app->configure('commands');
+$app->boot();
 
 return $app;
