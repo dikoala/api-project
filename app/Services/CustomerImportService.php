@@ -22,8 +22,9 @@ class CustomerImportService
             $client = new Client();
             $apiUrl = config('customers.api_url');
             $importLimit = config('customers.import_limit');
+            $nat = config('customers.nat');
 
-            $apiUrl .= $importLimit ? '/?nat=au&results=' . $importLimit : '';
+            $apiUrl .= $importLimit ? '/?nat=' . $nat . '&results=' . $importLimit : '';
 
             $response = $client->get($apiUrl);
             $data = json_decode($response->getBody()->getContents(), true)['results'];
